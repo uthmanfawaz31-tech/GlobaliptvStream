@@ -49,21 +49,19 @@
         .text-purple { color: #8B5CF6; }
         
         /* Logo Styling */
-        .navbar-brand .logo {
-            height: 100px;
-            width: 400px;
-            background: url('assets/logo/new logo.jpg') no-repeat left center / contain;
-            display: inline-block;
-        }
-        
         .logo-link {
             text-decoration: none;
-            display: block;
+            display: flex;
+            align-items: center;
             transition: transform 0.3s ease;
         }
-        
-        .logo-link:hover {
-            transform: scale(1.02);
+        .logo-link:hover { transform: scale(1.02); }
+        .navbar-brand .logo {
+            height: 54px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            display: block;
         }
         
         .nav-menu { 
@@ -704,15 +702,15 @@
 
             /* Mobile header: show compact menu and keep header slim */
             .navbar { grid-template-columns: auto auto; gap: 10px; padding: 10px 14px; min-height: 56px; }
-            .mobile-menu-btn { display: block; }
+            .mobile-menu-btn { display: block !important; }
             .nav-menu { position: absolute; top: 70px; left: 0; right: 0; transform: none; flex-direction: column; background: rgba(15, 15, 20, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; gap: 16px; z-index: 100; display: none; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
             .nav-menu.active { display: flex; }
-            .nav-link { font-size: 16px; padding: 10px; border-radius: 8px; justify-content: center; }
+            .nav-link { font-size: 13px; padding: 10px; border-radius: 8px; justify-content: center; }
             .nav-link:hover, .nav-link.active { background: rgba(139, 92, 246, 0.1); }
             .nav-actions { justify-self: end; }
             .social-icons-header { gap: 8px; }
             .social-icon-header { width: 26px; height: 26px; }
-            .navbar-brand .logo { height: 70px; width: 240px; }
+            .navbar-brand .logo { height: 44px; max-width: 180px; }
 
             /* App gallery grid on mobile: 3 rows — 2x2 images then full-width video */
             .media-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 160px); }
@@ -752,12 +750,13 @@
 
             /* Smaller header/icon sizes */
             .navbar { padding: 10px 12px; gap: 8px; }
-            .navbar-brand .logo { height: 70px; width: 240px; }
+            .navbar-brand .logo { height: 38px; max-width: 150px; }
             .social-icons-header { gap: 6px; }
             .social-icon-header { width: 24px; height: 24px; }
             /* App gallery media height */
             .media-grid img, .media-grid video { height: 140px; }
         }
+        /* Hamburger / mobile menu button - defined before media queries */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -780,7 +779,7 @@
             <nav class="navbar">
                 <div class="navbar-brand">
                     <a href="index.html" class="logo-link">
-                        <div class="logo" aria-label="Logo"></div>
+                        <img src="assets/logo/new logo.jpg" alt="GlobaliptvStream Logo" class="logo">
                     </a>
                 </div>
                 

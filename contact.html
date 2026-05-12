@@ -37,11 +37,14 @@
             position: relative;
             min-height: 60px;
         }
+        .logo-link { text-decoration: none; display: flex; align-items: center; transition: transform 0.3s ease; }
+        .logo-link:hover { transform: scale(1.02); }
         .navbar-brand .logo {
-            height: 100px;
-            width: 400px;
-            background: url('assets/logo/new logo.jpg') no-repeat left center / contain;
-            display: inline-block;
+            height: 54px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            display: block;
         }
         .nav-menu { display: flex; list-style: none; gap: 24px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; }
         .nav-link { color: #FFFFFF; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 4px; transition: all 0.3s ease; }
@@ -74,25 +77,7 @@
         .side-card .contact-item { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.8); font-size: 12px; }
         .side-card .contact-item i { color: #8B5CF6; width: 16px; }
 
-        @media (max-width: 768px) { 
-            .navbar { grid-template-columns: auto auto; gap: 10px; padding: 10px 14px; min-height: 56px; }
-            .mobile-menu-btn { display: block; }
-            .nav-menu { position: absolute; top: 70px; left: 0; right: 0; transform: none; flex-direction: column; background: rgba(15, 15, 20, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; gap: 16px; z-index: 100; display: none; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
-            .nav-menu.active { display: flex; }
-            .nav-link { font-size: 16px; padding: 10px; border-radius: 8px; justify-content: center; }
-            .nav-link:hover, .nav-link.active { background: rgba(139, 92, 246, 0.1); }
-            .social-icon-header { width: 26px; height: 26px; }
-            .navbar-brand .logo { height: 70px; width: 240px; }
-            .main-content { padding-top: 44px; padding-bottom: 30px; }
-            .contact-layout { grid-template-columns: 1fr; gap: 14px; padding: 0 4px; }
-            .form-grid { grid-template-columns: 1fr; gap: 14px; }
-        }
-        @media (max-width: 480px) {
-            .container { padding: 0 12px; }
-            .navbar { padding: 10px 12px; gap: 8px; }
-            .navbar-brand .logo { height: 70px; width: 240px; }
-            .bento-card { padding: 16px; }
-        }
+        /* Hamburger / mobile menu button */
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -103,6 +88,25 @@
             z-index: 101;
             padding: 4px;
         }
+        @media (max-width: 768px) { 
+            .navbar { grid-template-columns: auto auto; gap: 10px; padding: 10px 14px; min-height: 56px; }
+            .mobile-menu-btn { display: block !important; }
+            .nav-menu { position: absolute; top: 70px; left: 0; right: 0; transform: none; flex-direction: column; background: rgba(15, 15, 20, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; gap: 16px; z-index: 100; display: none; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+            .nav-menu.active { display: flex; }
+            .nav-link { font-size: 13px; padding: 10px; border-radius: 8px; justify-content: center; }
+            .nav-link:hover, .nav-link.active { background: rgba(139, 92, 246, 0.1); }
+            .social-icon-header { width: 26px; height: 26px; }
+            .navbar-brand .logo { height: 44px; max-width: 180px; }
+            .main-content { padding-top: 44px; padding-bottom: 30px; }
+            .contact-layout { grid-template-columns: 1fr; gap: 14px; padding: 0 4px; }
+            .form-grid { grid-template-columns: 1fr; gap: 14px; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0 12px; }
+            .navbar { padding: 10px 12px; gap: 8px; }
+            .navbar-brand .logo { height: 38px; max-width: 150px; }
+            .bento-card { padding: 16px; }
+        }
     </style>
 </head>
 <body>
@@ -111,7 +115,7 @@
             <nav class="navbar">
                 <div class="navbar-brand">
                     <a href="index.html" class="logo-link">
-                        <div class="logo" aria-label="Logo"></div>
+                        <img src="assets/logo/new logo.jpg" alt="GlobaliptvStream Logo" class="logo">
                     </a>
                 </div>
                 <ul class="nav-menu">

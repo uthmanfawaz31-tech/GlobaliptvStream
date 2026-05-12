@@ -64,11 +64,19 @@
         .text-purple { color: #8B5CF6; }
         
         /* Logo Styling */
+        .logo-link {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+        .logo-link:hover { transform: scale(1.02); }
         .navbar-brand .logo {
-            height: 100px;
-            width: 400px;
-            background: url('assets/logo/new logo.jpg') no-repeat left center / contain;
-            display: inline-block;
+            height: 54px;
+            width: auto;
+            max-width: 220px;
+            object-fit: contain;
+            display: block;
         }
         
         .nav-menu { 
@@ -310,34 +318,16 @@
         body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
         * { -webkit-touch-callout: none; -webkit-user-select: none; }
 
-        /* Hamburger menu for mobile */
-        .hamburger {
+        /* Hamburger / mobile menu button */
+        .mobile-menu-btn {
             display: none;
-            flex-direction: column;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
             cursor: pointer;
-            padding: 5px;
-            z-index: 1001;
-        }
-        
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: #fff;
-            margin: 3px 0;
-            transition: 0.3s;
-            border-radius: 2px;
-        }
-        
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-        
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
+            z-index: 101;
+            padding: 4px;
         }
         
         /* Featured Project Content - Perfect spacing */
@@ -644,7 +634,7 @@
                 min-height: 56px;
             }
             .mobile-menu-btn {
-                display: block;
+                display: block !important;
             }
             .nav-menu {
                 position: absolute;
@@ -666,13 +656,12 @@
             .nav-menu.active {
                 display: flex;
             }
-            .nav-link { font-size: 16px; padding: 10px; border-radius: 8px; justify-content: center; }
+            .nav-link { font-size: 13px; padding: 10px; border-radius: 8px; justify-content: center; }
             .nav-link:hover, .nav-link.active { background: rgba(139, 92, 246, 0.1); }
-            .nav-link { font-size: 13px; }
             .nav-actions { justify-self: end; }
             .social-icons-header { gap: 8px; }
             .social-icon-header { width: 26px; height: 26px; }
-            .navbar-brand .logo { height: 70px; width: 240px; }
+            .navbar-brand .logo { height: 44px; max-width: 180px; }
             
             .bento-grid { 
                 grid-template-columns: 1fr; 
@@ -710,8 +699,8 @@
             } 
             
             .navbar-brand .logo { 
-                height: 70px; 
-                width: 240px; 
+                height: 38px; 
+                max-width: 150px; 
             }
             
             .social-icons-header {
@@ -766,21 +755,10 @@
                 padding: 8px 10px;
                 gap: 6px;
             }
-            
-                    .navbar-brand .logo { 
-            height: 60px; 
-            width: 200px; 
-        }
-        
-        .logo-link {
-            text-decoration: none;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-        
-        .logo-link:hover {
-            transform: scale(1.02);
-        }
+            .navbar-brand .logo { 
+                height: 34px; 
+                max-width: 130px; 
+            }
             
             .social-icons-header {
                 gap: 4px;
@@ -953,16 +931,7 @@
             color: #FFFFFF;
             transform: translateY(-2px);
         }
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: #FFFFFF;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 101;
-            padding: 4px;
-        }
+        /* mobile-menu-btn base style is defined earlier in the file */
     </style>
     
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -975,7 +944,7 @@
             <nav class="navbar">
                 <div class="navbar-brand">
                     <a href="index.html" class="logo-link">
-                        <div class="logo" aria-label="Logo"></div>
+                        <img src="assets/logo/new logo.jpg" alt="GlobaliptvStream Logo" class="logo">
                     </a>
                 </div>
                 
