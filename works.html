@@ -53,15 +53,15 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            transition: transform 0.3s ease;
         }
-        .logo-link:hover { transform: scale(1.02); }
         .navbar-brand .logo {
             height: 54px;
-            width: auto;
-            max-width: 220px;
-            object-fit: contain;
+            width: 54px;
+            object-fit: cover;
+            border-radius: 50%;
             display: block;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
         }
         
         .nav-menu { 
@@ -81,7 +81,7 @@
             display: flex; 
             align-items: center; 
             gap: 4px; 
-            transition: all 0.3s ease; 
+            transition: color 0.1s ease; 
         }
         .nav-link:hover, .nav-link.active { color: #8B5CF6; }
         
@@ -710,7 +710,7 @@
             .nav-actions { justify-self: end; }
             .social-icons-header { gap: 8px; }
             .social-icon-header { width: 26px; height: 26px; }
-            .navbar-brand .logo { height: 44px; max-width: 180px; }
+            .navbar-brand .logo { height: 44px; width: 44px; }
 
             /* App gallery grid on mobile: 3 rows — 2x2 images then full-width video */
             .media-grid { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 160px); }
@@ -750,7 +750,7 @@
 
             /* Smaller header/icon sizes */
             .navbar { padding: 10px 12px; gap: 8px; }
-            .navbar-brand .logo { height: 38px; max-width: 150px; }
+            .navbar-brand .logo { height: 38px; width: 38px; }
             .social-icons-header { gap: 6px; }
             .social-icon-header { width: 24px; height: 24px; }
             /* App gallery media height */

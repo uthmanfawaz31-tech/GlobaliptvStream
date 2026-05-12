@@ -68,15 +68,15 @@
             text-decoration: none;
             display: flex;
             align-items: center;
-            transition: transform 0.3s ease;
         }
-        .logo-link:hover { transform: scale(1.02); }
         .navbar-brand .logo {
             height: 54px;
-            width: auto;
-            max-width: 220px;
-            object-fit: contain;
+            width: 54px;
+            object-fit: cover;
+            border-radius: 50%;
             display: block;
+            border: 2px solid rgba(139, 92, 246, 0.5);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
         }
         
         .nav-menu { 
@@ -96,7 +96,7 @@
             display: flex; 
             align-items: center; 
             gap: 4px; 
-            transition: all 0.3s ease; 
+            transition: color 0.1s ease; 
         }
         .nav-link:hover, .nav-link.active { color: #8B5CF6; }
         
