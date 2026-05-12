@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobaliptvStream</title>
+    <link rel="icon" type="image/jpeg" href="assets/fav icon/new fav icon.jpg">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; 
+            background: #0B0B0F; 
+            color: #FFFFFF; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+        }
+
+        /* Headings modern style */
+        h1, h2, h3 { letter-spacing: -0.02em; }
+        .profile-title {
+            font-family: 'Space Grotesk', 'Plus Jakarta Sans', Inter, sans-serif;
+            font-weight: 700;
+            font-size: clamp(22px, 2.2vw, 28px);
+            line-height: 1.15;
+            margin-bottom: 12px;
+            white-space: normal;
+            word-break: break-word;
+        }
+        .title-card .card-header .card-label { letter-spacing: 0.18em; }
+        .title-card { padding-top: 18px; padding-bottom: 18px; overflow: hidden; }
+        .title-card .profile-title { margin-top: 6px; white-space: normal; word-break: break-word; }
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        .header { 
+            position: relative; 
+            top: 12px; 
+            left: 0; 
+            right: 0; 
+            z-index: 1000; 
+            padding: 0; 
+        }
+        
+        .navbar { 
+            background: rgba(15, 15, 20, 0.9); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 14px; 
+            padding: 10px 18px; 
+            display: grid; 
+            grid-template-columns: auto 1fr auto; 
+            align-items: center; 
+            gap: 14px; 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            position: relative;
+            min-height: 60px;
+        }
+        
+        .navbar-brand h2 { font-size: 24px; font-weight: 600; color: #FFFFFF; }
+        .text-purple { color: #8B5CF6; }
+        
+        /* Logo Styling */
+        .navbar-brand .logo {
+            height: 100px;
+            width: 400px;
+            background: url('assets/logo/new logo.jpg') no-repeat left center / contain;
+            display: inline-block;
+        }
+        
+        .nav-menu { 
+            display: flex; 
+            list-style: none; 
+            gap: 24px; 
+            position: absolute; 
+            left: 50%; 
+            top: 50%; 
+            transform: translate(-50%, -50%); 
+            z-index: 2; 
+        }
+        .nav-link { 
+            color: #FFFFFF; 
+            text-decoration: none; 
+            font-weight: 500; 
+            display: flex; 
+            align-items: center; 
+            gap: 4px; 
+            transition: all 0.3s ease; 
+        }
+        .nav-link:hover, .nav-link.active { color: #8B5CF6; }
+        
+        .nav-actions { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            justify-self: end; 
+        }
+        .social-icons-header { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+        }
+        .social-icon-header { 
+            width: 32px; 
+            height: 32px; 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: rgba(255, 255, 255, 0.7); 
+            transition: all 0.3s ease; 
+            text-decoration: none; 
+            flex-shrink: 0;
+        }
+        .social-icon-header:hover { 
+            background: #8B5CF6; 
+            border-color: #8B5CF6; 
+            color: #FFFFFF; 
+            transform: translateY(-2px); 
+        }
+        .btn-talk { 
+            background: #8B5CF6; 
+            color: #FFFFFF; 
+            border: none; 
+            padding: 10px 18px; 
+            border-radius: 10px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+        }
+        .btn-talk:hover { background: #7C3AED; transform: translateY(-2px); }
+        
+        /* Main Content */
+        .main-content { 
+            padding-top: 40px; 
+            padding-bottom: 20px; 
+            margin-top: 16px;
+        }
+        
+        /* Bento Grid - Perfect spacing and layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(6, minmax(70px, auto));
+            gap: 12px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Grid Positioning - Perfect arrangement */
+        .latest-works-card { grid-column: 1 / 13; grid-row: 1 / 2; }
+        .title-card { grid-column: 1 / 4; grid-row: 2 / 3; }
+        .profile-card { grid-column: 1 / 4; grid-row: 3 / 6; }
+        .profile-cta-card { grid-column: 4 / 7; grid-row: 2 / 3; }
+        .works-card { grid-column: 4 / 10; grid-row: 3 / 4; }
+        .stats-card { grid-column: 7 / 10; grid-row: 2 / 3; }
+        .experience-card { grid-column: 10 / 13; grid-row: 2 / 4; }
+        .contact-card { grid-column: 10 / 13; grid-row: 4 / 5; }
+        .skills-card { grid-column: 4 / 10; grid-row: 4 / 5; }
+        .services-card { grid-column: 4 / 7; grid-row: 5 / 6; }
+        .together-card { grid-column: 7 / 10; grid-row: 5 / 6; }
+        
+        /* Card Styles - Perfect spacing and content fitting */
+        .bento-card {
+            background: rgba(20, 20, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 70px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bento-card:hover {
+            border-color: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.2);
+        }
+        
+        /* Card Headers - Perfect spacing */
+        .card-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 12px; 
+        }
+        .card-label { 
+            font-size: 11px; 
+            color: rgba(255, 255, 255, 0.6); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+        .star-icon { color: #F59E0B; font-size: 14px; }
+        .star-icon.purple { color: #8B5CF6; }
+        
+        /* Specific Card Heights - Perfect content fitting */
+        .profile-card { min-height: 320px; justify-content: flex-start; align-items: center; gap: 6px; }
+        .profile-image-container { display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+        .profile-image { position: relative; width: 160px; height: 160px; border-radius: 50%; overflow: hidden; border: 2px solid rgba(255,255,255,0.2); }
+        .profile-image img { width: 100%; height: 100%; object-fit: cover; display:block; }
+        .name-badge { 
+            position: absolute; 
+            left: 50%; 
+            bottom: 8px; 
+            transform: translateX(-50%);
+            padding: 6px 12px; 
+            font-size: 11px; 
+            border-radius: 999px; 
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+            background: #8B5CF6; color: #fff; border: none; 
+        }
+        .mini-desc { text-align: center; color: rgba(255,255,255,.8); margin-top: 8px; line-height: 1.4; max-width: 280px; font-size: 12px; }
+        .profile-footer { margin-top: 8px; }
+        .name-btn { 
+            background: #8B5CF6; 
+            color: #fff; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 999px; 
+            font-weight: 700; 
+            font-size: 13px; 
+            margin: 8px 0 4px; 
+            pointer-events: none; 
+            cursor: default; 
+        }
+        .profile-tags { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 6px; 
+            justify-content: center; 
+            margin-top: 6px; 
+        }
+        .profile-tags .tag { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 4px 8px; 
+            border-radius: 999px; 
+            color: rgba(255,255,255,0.85); 
+            font-size: 10px; 
+            font-weight: 600; 
+        }
+        .profile-meta { 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            color: rgba(255,255,255,0.65); 
+            font-size: 11px; 
+            margin-top: 3px; 
+        }
+        .profile-meta .dot { opacity: .6; }
+        .experience-card { min-height: 200px; justify-content: space-between; }
+        .contact-card { min-height: 140px; justify-content: space-between; margin-top: 6px; }
+        .latest-works-card { min-height: 50px; justify-content: center; }
+        .works-card { min-height: 70px; }
+        .skills-card { min-height: 70px; }
+        
+        /* Content Styles - Perfect sizing and spacing */
+        .profile-title { font-size: 20px; font-weight: 600; color: #FFFFFF; margin-bottom: 12px; }
+        .profile-image-container { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 12px; 
+        }
+        .profile-image { 
+            position: relative; 
+            width: 160px; 
+            height: 160px; 
+            border-radius: 50%; 
+            overflow: hidden; 
+            border: 2px solid rgba(255, 255, 255, 0.2); 
+        }
+        .profile-image img { width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; }
+        .profile-image img { width: 100%; height: 100%; object-fit: cover; -webkit-user-drag: none; user-select: none; }
+        
+        .btn-pill { 
+            background: #8B5CF6; 
+            color: #fff; 
+            border: none; 
+            padding: 6px 14px; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            margin: 10px 0 4px; 
+            font-size: 13px; 
+        }
+        .mini-desc { color: rgba(255,255,255,.75); font-size: 12px; }
+        .profile-footer { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            margin-top: 10px; 
+            color: rgba(255,255,255,.6); 
+        }
+        .small-link { font-size: 11px; }
+        .icon-arrow { opacity: .8; }
+        img, video { -webkit-user-drag: none; user-select: none; -webkit-touch-callout: none; }
+        /* Screenshot prevention */
+        body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+        * { -webkit-touch-callout: none; -webkit-user-select: none; }
+
+        /* Hamburger menu for mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        /* Featured Project Content - Perfect spacing */
+        .cta-content h3 { font-size: 16px; font-weight: 600; color: #FFFFFF; margin-bottom: 6px; }
+        .cta-content p { color: rgba(255, 255, 255, 0.7); margin-bottom: 8px; font-size: 12px; }
+        .project-preview { margin-top: 6px; }
+        .project-stats { 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            color: rgba(255, 255, 255, 0.6); 
+            font-size: 11px; 
+            font-weight: 500; 
+        }
+        
+        /* Stats Content - Perfect spacing */
+        .stats-content { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+        }
+        .stat-item { 
+            text-align: center; 
+            padding: 12px 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .stat-number { 
+            font-size: 24px; 
+            font-weight: 800; 
+            color: #8B5CF6; 
+            margin-bottom: 4px; 
+        }
+        .stat-label { 
+            font-size: 9px; 
+            color: rgba(255, 255, 255, 0.7); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 3px;
+        }
+        .stat-detail { 
+            font-size: 8px; 
+            color: rgba(255, 255, 255, 0.5); 
+            line-height: 1.3;
+        }
+        
+        /* Experience Content - Perfect spacing */
+        .experience-content { text-align: center; margin: 16px 0 12px; }
+        .experience-number { font-size: 56px; font-weight: 700; color: #FFFFFF; line-height: 1; margin-bottom: 4px; }
+        .experience-text { display: flex; flex-direction: column; gap: 2px; }
+        .experience-text span { font-size: 10px; color: rgba(255, 255, 255, 0.6); font-weight: 500; letter-spacing: 1px; }
+        .experience-details { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+            margin-top: 10px; 
+        }
+        .exp-item { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 1px; 
+            text-align: center; 
+        }
+        .exp-role { 
+            color: #FFFFFF; 
+            font-size: 11px; 
+            font-weight: 600; 
+        }
+        .exp-company { 
+            color: rgba(255, 255, 255, 0.6); 
+            font-size: 9px; 
+        }
+        
+        .social-icons { display: flex; flex-direction: column; gap: 8px; align-items: center; }
+        .social-icon { 
+            width: 32px; 
+            height: 32px; 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #FFFFFF; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+        .social-icon:hover { background: #8B5CF6; border-color: #8B5CF6; transform: translateY(-2px); }
+        
+        /* Scrolling Text - Perfect spacing */
+        .scrolling-text { 
+            display: flex; 
+            gap: 20px; 
+            animation: scroll 25s linear infinite; 
+            white-space: nowrap; 
+            overflow: hidden;
+            width: max-content;
+            will-change: transform;
+        }
+        .scrolling-text span { 
+            font-size: 12px; 
+            font-weight: 600; 
+            color: rgba(255, 255, 255, 0.8); 
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05));
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        @keyframes scroll { 
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+
+        /* Generic fade-up animation */
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(10px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        /* Works Card - Perfect spacing */
+        .works-card .card-header h3 { font-size: 16px; font-weight: 600; color: #FFFFFF; }
+        .star-icons { display: flex; gap: 6px; }
+        .star { color: #F59E0B; font-size: 14px; }
+        
+        .dashboard-preview { 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%); 
+            border-radius: 10px; 
+            padding: 12px; 
+            margin: 8px 0; 
+            min-height: 90px; 
+        }
+        .dashboard-preview::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(60% 60% at 20% 0%, rgba(139,92,246,0.18), transparent 60%), radial-gradient(60% 60% at 100% 60%, rgba(59,130,246,0.15), transparent 60%); filter: blur(18px); opacity: .6; }
+        .dashboard-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+        .dashboard-nav { display: flex; align-items: center; gap: 8px; }
+        .nav-dot { width: 8px; height: 8px; background: #6B7280; border-radius: 50%; }
+        .nav-lines { display: flex; flex-direction: column; gap: 1px; }
+        .nav-line { width: 14px; height: 2px; background: #6B7280; border-radius: 1px; }
+        .dashboard-card.purple { width: 40px; height: 24px; background: #8B5CF6; border-radius: 5px; }
+        
+        .dashboard-content { display: flex; gap: 10px; }
+        .dashboard-sidebar { display: flex; flex-direction: column; gap: 6px; }
+        .sidebar-item.blue { width: 24px; height: 14px; background: #3B82F6; border-radius: 3px; }
+        .sidebar-chart { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; }
+        .chart-circle { width: 18px; height: 18px; border: 2px solid #374151; border-top-color: #8B5CF6; border-radius: 50%; }
+        
+        .dashboard-main { flex: 1; }
+        .main-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+        .item.small { height: 14px; border-radius: 2px; }
+        .item.small.purple { background: #8B5CF6; }
+        .item.small.blue { background: #3B82F6; }
+        .item.small.gray { background: #6B7280; }
+        .item.large { grid-column: 1 / 4; height: 20px; background: rgba(255, 255, 255, 0.05); border-radius: 3px; padding: 5px; }
+        .item-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; height: 100%; }
+        .grid-item { background: #6B7280; border-radius: 1px; }
+        
+        .works-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
+        .works-footer span { color: rgba(255, 255, 255, 0.85); font-weight: 600; font-size: 12px; letter-spacing: .3px; }
+        .arrow-icon { width: 28px; height: 28px; background: rgba(255, 255, 255, 0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #FFFFFF; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,.12); text-decoration: none; }
+        .arrow-icon:hover { background: #8B5CF6; border-color: #8B5CF6; transform: translateX(2px); box-shadow: 0 8px 18px rgba(139,92,246,.35); }
+        .works-chips { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+        .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); color: rgba(255,255,255,.9); border-radius: 999px; font-size: 11px; font-weight: 600; }
+        .chip-preview { width: 16px; height: 16px; border-radius: 50%; background-size: cover; background-position: center; }
+        
+        @media (max-width: 768px) {
+            .works-chips { 
+                gap: 4px; 
+                margin-top: 8px;
+                justify-content: center;
+            }
+            .chip { 
+                padding: 4px 8px; 
+                font-size: 10px; 
+                gap: 4px;
+            }
+            .chip-preview { 
+                width: 14px; 
+                height: 14px; 
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .works-chips { 
+                gap: 3px; 
+                margin-top: 6px;
+            }
+            .chip { 
+                padding: 3px 6px; 
+                font-size: 9px; 
+                gap: 3px;
+            }
+            .chip-preview { 
+                width: 12px; 
+                height: 12px; 
+            }
+            .chip:nth-child(5) { 
+                display: none; 
+            }
+        }
+        
+        /* Skills Card - Perfect spacing */
+        .skills-card .card-header h3 { font-size: 14px; font-weight: 600; color: #FFFFFF; }
+        .skills-content { display: flex; flex-direction: column; gap: 12px; }
+        .skill-category h4 { font-size: 11px; font-weight: 600; color: #8B5CF6; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-tag { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            padding: 6px 10px; 
+            border-radius: 16px; 
+            color: rgba(255, 255, 255, 0.8); 
+            font-size: 10px; 
+            font-weight: 500; 
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .skill-tag:hover { 
+            background: rgba(139, 92, 246, 0.15); 
+            border-color: #8B5CF6; 
+            color: #FFFFFF; 
+            transform: translateY(-2px);
+        }
+        /* Skills reveal animation */
+        .skills-card { opacity: 0; transform: translateY(18px) scale(0.98); }
+        .skills-card.is-revealed { opacity: 1; transform: translateY(0) scale(1); transition: transform 1.45s cubic-bezier(.22,1,.36,1), opacity 1.45s ease-out; }
+        .skills-card .skill-tag { opacity: 0; transform: translateY(8px) scale(0.98); }
+        .skills-card.is-revealed .skill-tag { animation: fadeUp 1.2s ease-out forwards; }
+        .skills-card .card-header h3, .skills-card .skill-category h4 { will-change: transform, opacity; }
+        
+        /* Services Content - Perfect spacing */
+        .services-content h3 { font-size: 14px; font-weight: 600; color: #FFFFFF; margin-bottom: 10px; }
+        .services-list { list-style: none; }
+        .services-list li { color: rgba(255, 255, 255, 0.8); margin-bottom: 4px; padding-left: 10px; position: relative; font-size: 11px; }
+        .services-list li::before { content: '✦'; color: #8B5CF6; position: absolute; left: 0; }
+        
+        /* Testimonials Content - Perfect spacing */
+        .together-content h3 { font-size: 14px; font-weight: 600; color: #FFFFFF; margin-bottom: 6px; }
+        .together-content p { color: rgba(255, 255, 255, 0.8); margin-bottom: 8px; font-size: 11px; line-height: 1.4; font-style: italic; }
+        .client-info { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 1px; 
+            margin-top: 6px; 
+        }
+        .client-name { color: #8B5CF6; font-size: 11px; font-weight: 600; }
+        .client-role { color: rgba(255, 255, 255, 0.5); font-size: 10px; }
+        
+        /* Contact Content - Perfect spacing */
+        .contact-content h3 { font-size: 14px; font-weight: 600; color: #FFFFFF; margin-bottom: 10px; }
+        .contact-info { margin-bottom: 12px; }
+        .contact-item { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: rgba(255, 255, 255, 0.8); font-size: 11px; }
+        .contact-item i { color: #8B5CF6; width: 16px; }
+        
+        /* Blog Content - Perfect spacing */
+        .blog-content h3 { font-size: 14px; font-weight: 600; color: #FFFFFF; margin-bottom: 10px; }
+        .blog-preview { display: flex; flex-direction: column; gap: 8px; }
+        .blog-item { display: flex; flex-direction: column; gap: 2px; }
+        .blog-date { font-size: 10px; color: rgba(255, 255, 255, 0.5); }
+        .blog-item p { color: rgba(255, 255, 255, 0.8); font-size: 11px; }
+        
+        /* Projects Card - Perfect spacing */
+        .projects-card { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%); 
+        }
+        .projects-number { font-size: 48px; font-weight: 700; color: #FFFFFF; line-height: 1; margin-bottom: 4px; }
+        .projects-label { font-size: 10px; color: rgba(255, 255, 255, 0.6); font-weight: 500; letter-spacing: 1px; }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) { 
+            .bento-grid { 
+                grid-template-columns: repeat(8, 1fr); 
+                gap: 12px; 
+                grid-template-rows: repeat(8, minmax(80px, auto));
+            } 
+            .latest-works-card { grid-column: 1 / 9; grid-row: 1 / 2; }
+            .title-card { grid-column: 1 / 3; grid-row: 2 / 3; }
+            .profile-card { grid-column: 1 / 3; grid-row: 3 / 6; }
+            .profile-cta-card { grid-column: 3 / 5; grid-row: 2 / 3; }
+            .works-card { grid-column: 3 / 7; grid-row: 3 / 4; }
+            .stats-card { grid-column: 5 / 7; grid-row: 2 / 3; }
+            .experience-card { grid-column: 7 / 9; grid-row: 2 / 4; }
+            .contact-card { grid-column: 7 / 9; grid-row: 4 / 5; }
+            .skills-card { grid-column: 3 / 7; grid-row: 4 / 5; }
+            .services-card { grid-column: 3 / 5; grid-row: 5 / 6; }
+            .together-card { grid-column: 5 / 7; grid-row: 5 / 6; }
+        }
+        
+        @media (max-width: 768px) { 
+            /* Mobile header: show compact menu */
+            .navbar {
+                grid-template-columns: auto auto;
+                gap: 10px;
+                padding: 10px 14px;
+                min-height: 56px;
+            }
+            .mobile-menu-btn {
+                display: block;
+            }
+            .nav-menu {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                transform: none;
+                flex-direction: column;
+                background: rgba(15, 15, 20, 0.98);
+                backdrop-filter: blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 14px;
+                padding: 20px;
+                gap: 16px;
+                z-index: 100;
+                display: none;
+                box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+            .nav-link { font-size: 16px; padding: 10px; border-radius: 8px; justify-content: center; }
+            .nav-link:hover, .nav-link.active { background: rgba(139, 92, 246, 0.1); }
+            .nav-link { font-size: 13px; }
+            .nav-actions { justify-self: end; }
+            .social-icons-header { gap: 8px; }
+            .social-icon-header { width: 26px; height: 26px; }
+            .navbar-brand .logo { height: 70px; width: 240px; }
+            
+            .bento-grid { 
+                grid-template-columns: 1fr; 
+                gap: 12px; 
+                grid-template-rows: auto;
+                grid-auto-rows: minmax(120px, auto);
+                padding: 0 16px;
+            } 
+            
+            .bento-card { 
+                grid-column: 1 / 2 !important; 
+                grid-row: auto !important; 
+                margin-bottom: 12px;
+                min-height: auto;
+            } 
+            
+            .profile-image { width: 140px; height: 140px; } 
+            .experience-number { font-size: 48px; } 
+            
+            .main-content {
+                padding-top: 30px;
+            }
+            
+            .header {
+                top: 8px;
+            }
+        }
+        
+        @media (max-width: 480px) { 
+            .container { padding: 0 12px; } 
+            
+            .navbar { 
+                padding: 10px 12px; 
+                gap: 8px;
+            } 
+            
+            .navbar-brand .logo { 
+                height: 70px; 
+                width: 240px; 
+            }
+            
+            .social-icons-header {
+                gap: 6px;
+            }
+            
+            .social-icon-header {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .bento-card { 
+                padding: 14px; 
+                margin-bottom: 10px;
+            } 
+            
+            .main-content { 
+                padding-top: 20px; 
+            } 
+            
+            .bento-grid { 
+                gap: 10px; 
+                padding: 0 12px;
+            }
+            
+            .profile-image { 
+                width: 120px; 
+                height: 120px; 
+            }
+            
+            .experience-number { 
+                font-size: 40px; 
+            }
+            
+            .profile-title {
+                font-size: 18px;
+            }
+            
+            .mini-desc {
+                font-size: 11px;
+                max-width: 100%;
+            }
+            
+            .profile-tags .tag {
+                font-size: 9px;
+                padding: 3px 6px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .navbar {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+            
+                    .navbar-brand .logo { 
+            height: 60px; 
+            width: 200px; 
+        }
+        
+        .logo-link {
+            text-decoration: none;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-link:hover {
+            transform: scale(1.02);
+        }
+            
+            .social-icons-header {
+                gap: 4px;
+            }
+            
+            .social-icon-header {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .bento-card { 
+                padding: 12px; 
+            }
+            
+            .profile-image { 
+                width: 100px; 
+                height: 100px; 
+            }
+            
+            .experience-number { 
+                font-size: 36px; 
+            }
+        }
+        /* Pricing & IPTV Sections */
+        .pricing-section {
+            padding: 40px 20px;
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .pricing-card {
+            background: rgba(20, 20, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .pricing-card:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.25);
+        }
+        .plan-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #8B5CF6;
+        }
+        .plan-features {
+            list-style: none;
+            flex: 1;
+        }
+        .plan-features li {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .plan-features li::before {
+            content: '✦';
+            color: #8B5CF6;
+            font-size: 12px;
+            margin-top: 2px;
+        }
+        .btn-pricing {
+            display: inline-block;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #FFFFFF;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+        .btn-pricing:hover {
+            background: #8B5CF6;
+            border-color: #8B5CF6;
+        }
+        .server-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+        .server-card {
+            background: rgba(20, 20, 25, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .server-card:hover {
+            border-color: #8B5CF6;
+            background: rgba(139, 92, 246, 0.05);
+        }
+        .server-icon {
+            font-size: 24px;
+            color: #8B5CF6;
+            margin-bottom: 12px;
+        }
+        .server-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 6px;
+        }
+        .server-desc {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .plan-price {
+            font-size: 32px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: -4px;
+        }
+        .plan-price span {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+        .panel-chips {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 16px;
+            margin-bottom: 30px;
+        }
+        .panel-chip {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            padding: 6px 12px;
+            border-radius: 999px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .panel-chip:hover {
+            background: #8B5CF6;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 101;
+            padding: 4px;
+        }
+    </style>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <div class="logo" aria-label="Logo"></div>
+                    </a>
+                </div>
+                
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="about.html" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="works.html" class="nav-link">Works</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <a href="https://t.me/zaahmil" class="social-icon-header" title="Telegram" target="_blank" rel="noopener"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://wa.me/+2250140017691" class="social-icon-header" title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                    <button class="mobile-menu-btn" aria-label="Toggle menu" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="home">
+        <div class="container">
+            <div class="bento-grid">
+                <!-- Top Featured Strip -->
+                <div class="bento-card latest-works-card">
+                    <div class="scrolling-text">
+                        <span>🚀 FULL-STACK DEVELOPMENT • REACT • NODE.JS • TYPESCRIPT 🚀</span>
+                        <span>💻 WEB APPLICATIONS • MOBILE APPS • API DEVELOPMENT 💻</span>
+                        <span>⚡ PERFORMANCE • SCALABILITY • CLEAN CODE • BEST PRACTICES ⚡</span>
+                        <span>🎯 UI/UX DESIGN • RESPONSIVE • ACCESSIBLE • MODERN TECH 🎯</span>
+                        <span>🚀 FULL-STACK DEVELOPMENT • REACT • NODE.JS • TYPESCRIPT 🚀</span>
+                        <span>💻 WEB APPLICATIONS • MOBILE APPS • API DEVELOPMENT 💻</span>
+                        <span>⚡ PERFORMANCE • SCALABILITY • CLEAN CODE • BEST PRACTICES ⚡</span>
+                        <span>🎯 UI/UX DESIGN • RESPONSIVE • ACCESSIBLE • MODERN TECH 🎯</span>
+                        <span>🚀 PREMIUM IPTV • 100,000+ MOVIES & SERIES • 20,000+ LIVE CHANNELS 🚀</span>
+                        <span>💻 ALL DEVICES SUPPORTED • SMART TV • ANDROID • IOS • FIRE TV 💻</span>
+                        <span>⚡ 99.9% UPTIME • ANTI-FREEZE TECH • FAST SERVERS • LOW LATENCY ⚡</span>
+                        <span>🎯 RESELLER PANELS • UNLIMITED CONNECTIONS • 24/7 SUPPORT 🎯</span>
+                    </div>
+                </div>
+
+                <!-- Title Card -->
+                <div class="bento-card title-card">
+                    <div class="card-header">
+                        <span class="card-label">Title</span>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <h2 class="profile-title">GlobaliptvStream</h2>
+                    <ul class="services-list">
+                        <li>Premium IPTV Subscriptions</li>
+                        <li>Global Server Coverage 24/7</li>
+                    </ul>
+                </div>
+
+                <!-- Profile Card -->
+                <div class="bento-card profile-card">
+                    <div class="profile-image-container">
+                        <div class="profile-image">
+                            <img src="assets/profile image/global iptv.jpg" alt="GlobaliptvStream">
+                        </div>
+                    </div>
+                    <button class="btn-pill name-btn" type="button">GlobaliptvStream</button>
+                    <p class="mini-desc">We are a dedicated team of streaming experts providing premium IPTV services globally. We ensure top-notch performance, maximum uptime, and reliable support across all your devices.</p>
+                    <div class="profile-tags">
+                        <span class="tag">4K Streaming</span>
+                        <span class="tag">Anti-Freeze</span>
+                        <span class="tag">EPG Guide</span>
+                        <span class="tag">VOD</span>
+                        <span class="tag">Multi-Screen</span>
+                        <span class="tag">Global Servers</span>
+                        <span class="tag">24/7 Support</span>
+                        <span class="tag">Reseller Panels</span>
+                     </div>
+                    <div class="profile-meta">
+                        <span class="meta">Global Coverage</span>
+                        <span class="dot">•</span>
+                        <span class="meta">24/7 Premium Support</span>
+                    </div>
+                </div>
+
+                <!-- Featured Project Card -->
+                <div class="bento-card profile-cta-card">
+                    <div class="card-header">
+                        <span class="card-label">Featured</span>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <div class="services-content">
+                        <h3>Latest Project</h3>
+                        <ul class="services-list">
+                            <li>E-commerce platform</li>
+                            <li>React & Node.js</li>
+                            <li>Full-stack • 3 months</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="bento-card stats-card">
+                    <div class="card-header">
+                        <span class="card-label">STATS</span>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <div class="services-content">
+                        <h3>Key Metrics</h3>
+                        <ul class="services-list">
+                            <li>Projects Completed — 38</li>
+                            <li>Client Satisfaction — 5-Star Average</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience Card -->
+                <div class="bento-card experience-card">
+                    <div class="card-header">
+                        <span class="card-label">EXPERIENCE</span>
+                        <div class="star-icon purple">✦</div>
+                    </div>
+                    <div class="experience-content">
+                        <div class="experience-number">07</div>
+                        <div class="experience-text">
+                            <span>YEARS</span>
+                            <span>EXPERIENCE</span>
+                        </div>
+                    </div>
+                    <div class="experience-details">
+                        <div class="exp-item">
+                            <span class="exp-role">Senior Developer</span>
+                            <span class="exp-company">TechCorp • 2022-Present</span>
+                        </div>
+                        <div class="exp-item">
+                            <span class="exp-role">Full-Stack Developer</span>
+                            <span class="exp-company">StartupXYZ • 2020-2022</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Latest Works Card -->
+                <div class="bento-card works-card">
+                    <div class="card-header">
+                        <h3>See My Latest Works</h3>
+                        <div class="star-icons">
+                            <span class="star">✦</span>
+                            <span class="star">✨</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-preview">
+                        <div class="dashboard-header">
+                            <div class="dashboard-nav">
+                                <div class="nav-dot"></div>
+                                <div class="nav-lines">
+                                    <div class="nav-line"></div>
+                                    <div class="nav-line"></div>
+                                    <div class="nav-line"></div>
+                                </div>
+                            </div>
+                            <div class="dashboard-card purple"></div>
+                        </div>
+                        <div class="dashboard-content">
+                            <div class="dashboard-sidebar">
+                                <div class="sidebar-item blue"></div>
+                                <div class="sidebar-chart">
+                                    <div class="chart-circle"></div>
+                                </div>
+                            </div>
+                            <div class="dashboard-main">
+                                <div class="main-items">
+                                    <div class="item small purple"></div>
+                                    <div class="item small blue"></div>
+                                    <div class="item small gray"></div>
+                                    <div class="item large">
+                                        <div class="item-grid">
+                                            <div class="grid-item"></div>
+                                            <div class="grid-item"></div>
+                                            <div class="grid-item"></div>
+                                            <div class="grid-item"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="works-chips">
+                                <span class="chip"><span class="chip-preview" style="background-image:url('assets/work assets/app-asset/Ibo Pro Player/5839310353526279080.jpg')"></span>Ibo Pro</span>
+        <span class="chip"><span class="chip-preview" style="background-image:url('assets/work assets/app-asset/Tivimate Player/08ee49d0-b304-469d-a35f-8d492e42e7de.jpg')"></span>Tivimate</span>
+        <span class="chip"><span class="chip-preview" style="background-image:url('assets/work assets/app-asset/Smarter Pro Player/5868607824395880160.jpg')"></span>Smarter</span>
+        <span class="chip"><span class="chip-preview" style="background-image:url('assets/work assets/app-asset/Xciptv Player/5868607824395880147.jpg')"></span>XCIPTV</span>
+        <span class="chip"><span class="chip-preview" style="background-image:url('assets/work assets/website banner image/Premium-IPTV-Firestick.jpg')"></span>PW IPTV</span>
+                    </div>
+                    <div class="works-footer">
+                        <span>All Projects</span>
+                        <a href="works.html#all" class="arrow-icon" title="See latest works">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Skills Card -->
+                <div class="bento-card skills-card">
+                    <div class="card-header">
+                        <h3>Our Infrastructure</h3>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <div class="skills-content">
+                        <div class="skill-category">
+                            <h4>Servers</h4>
+                            <div class="skills-tags">
+                                <span class="skill-tag">Dedicated Servers</span>
+                                <span class="skill-tag">Multi-region CDN</span>
+                                <span class="skill-tag">DDoS Protection</span>
+                                <span class="skill-tag">99.9% Uptime</span>
+                            </div>
+                        </div>
+                        <div class="skill-category">
+                            <h4>Streaming Tech</h4>
+                            <div class="skills-tags">
+                                <span class="skill-tag">Anti-Freeze</span>
+                                <span class="skill-tag">HLS / MPEG-TS</span>
+                                <span class="skill-tag">Low Latency</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Services Card -->
+                <div class="bento-card services-card">
+                    <div class="card-header">
+                        <span class="card-label">Services</span>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <div class="services-content">
+                        <h3>What We Do</h3>
+                        <ul class="services-list">
+                            <li>Premium Subscriptions</li>
+                            <li>Reseller Panels</li>
+                            <li>Restream Services</li>
+                            <li>24/7 Technical Support</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Testimonials Card -->
+                <div class="bento-card together-card">
+                    <div class="card-header">
+                        <span class="card-label">Testimonials</span>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <div class="together-content">
+                        <h3>Client Feedback</h3>
+                        <p>"GlobaliptvStream delivered exactly what we needed, amazing quality and zero buffering. Highly recommended!"</p>
+                        <div class="client-info">
+                            <span class="client-name">- Sarah Johnson</span>
+                            <span class="client-role">Reseller Partner</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Card -->
+                <div class="bento-card contact-card">
+                    <div class="card-header">
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <div class="contact-content">
+                        <h3>Get In Touch</h3>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <i class="fas fa-envelope"></i>
+                                <span>chapmandharmi@gmail.com</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fas fa-phone"></i>
+                                <span>+2250140017691</span>
+                            </div>
+                        </div>
+                        <a href="contact.html" class="btn-talk">Send Message</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- IPTV Sections -->
+    <section class="pricing-section" id="subscriptions">
+        <div class="section-header">
+            <h2>IPTV Subscriptions</h2>
+            <p>Affordable plans loaded with channels, movies and series — works on every device you own.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-name">1 Month</div>
+                <div class="plan-price">$10<span>/mo</span></div>
+                <ul class="plan-features">
+                    <li>20,000+ Live Channels</li>
+                    <li>80,000+ Movies & Series</li>
+                    <li>4K / FHD / HD</li>
+                    <li>EPG TV Guide</li>
+                    <li>Anti-Freeze Servers</li>
+                    <li>All Devices Supported</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">3 Months</div>
+                <div class="plan-price">$25<span>/3mo</span></div>
+                <ul class="plan-features">
+                    <li>Everything in Monthly</li>
+                    <li>Save vs monthly</li>
+                    <li>Premium Sports & PPV</li>
+                    <li>Multi-language Channels</li>
+                    <li>24/7 Support</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">6 Months</div>
+                <div class="plan-price">$45<span>/6mo</span></div>
+                <ul class="plan-features">
+                    <li>Everything in 3 Months</li>
+                    <li>Priority Servers</li>
+                    <li>Adult Section (optional)</li>
+                    <li>VOD Auto-Updates</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">12 Months</div>
+                <div class="plan-price">$60<span>/yr</span></div>
+                <ul class="plan-features">
+                    <li>Everything Included</li>
+                    <li>Best Value</li>
+                    <li>Free Setup Help</li>
+                    <li>Account Recovery</li>
+                    <li>VIP Support Channel</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="reseller">
+        <div class="section-header">
+            <h2>Reseller Panels</h2>
+            <p>Pick from 27+ premium panels. Manage clients, generate credits, scale globally.</p>
+        </div>
+        <div class="panel-chips">
+            <span class="panel-chip">Strong8k</span>
+            <span class="panel-chip">Dream4k</span>
+            <span class="panel-chip">Trex OTT</span>
+            <span class="panel-chip">Lion OTT</span>
+            <span class="panel-chip">Mega OTT</span>
+            <span class="panel-chip">XUI ONE</span>
+            <span class="panel-chip">XTream UI</span>
+            <span class="panel-chip">Diamond Panel</span>
+            <span class="panel-chip">Max OTT</span>
+            <span class="panel-chip">Nexon Panel</span>
+            <span class="panel-chip">Prime PLUS</span>
+            <span class="panel-chip">Crystal OTT</span>
+            <span class="panel-chip">NEO4K</span>
+            <span class="panel-chip">Pure Panel</span>
+            <span class="panel-chip">Skyglass</span>
+            <span class="panel-chip">Foxx OTT</span>
+            <span class="panel-chip">OPPLEX OTT</span>
+            <span class="panel-chip">B1G</span>
+            <span class="panel-chip">Magnum Panel</span>
+            <span class="panel-chip">Golden OTT</span>
+            <span class="panel-chip">Purple Panel</span>
+            <span class="panel-chip">Extra OTT</span>
+            <span class="panel-chip">Dino</span>
+            <span class="panel-chip">Atlas Panel</span>
+            <span class="panel-chip">Ott Platinum</span>
+            <span class="panel-chip">TiviONE</span>
+            <span class="panel-chip">Tivi Plus</span>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-name">Starter</div>
+                <div class="plan-price">$150<span>/yr</span></div>
+                <ul class="plan-features">
+                    <li>5 Yearly Accounts</li>
+                    <li>Full Reseller Dashboard</li>
+                    <li>Choice of Any Panel</li>
+                    <li>24/7 Reseller Support</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">Growth</div>
+                <div class="plan-price">$250<span>/yr</span></div>
+                <ul class="plan-features">
+                    <li>10 Yearly Accounts</li>
+                    <li>Full Reseller Dashboard</li>
+                    <li>Free Migration Help</li>
+                    <li>Priority Support</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">Pro</div>
+                <div class="plan-price">$400<span>/yr</span></div>
+                <ul class="plan-features">
+                    <li>20 Yearly Accounts</li>
+                    <li>Sub-reseller Option</li>
+                    <li>VIP Server Access</li>
+                    <li>Dedicated Manager</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">Unlimited</div>
+                <div class="plan-price">$1500</div>
+                <ul class="plan-features">
+                    <li>Unlimited Accounts</li>
+                    <li>Highest Tier Servers</li>
+                    <li>White-label Support</li>
+                    <li>Custom Integration</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="server-types">
+        <div class="section-header">
+            <h2>Server Types & Features</h2>
+            <p>High-performance infrastructure with enterprise-grade stability.</p>
+        </div>
+        <div class="server-grid">
+            <div class="server-card">
+                <div class="server-icon"><i class="fas fa-server"></i></div>
+                <div class="server-title">Dedicated Servers</div>
+                <div class="server-desc">Exclusive resources for zero buffering during peak hours.</div>
+            </div>
+            <div class="server-card">
+                <div class="server-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="server-title">Anti-Freeze Tech</div>
+                <div class="server-desc">Proprietary load balancing ensuring uninterrupted streams.</div>
+            </div>
+            <div class="server-card">
+                <div class="server-icon"><i class="fas fa-globe"></i></div>
+                <div class="server-title">Multi-region CDN</div>
+                <div class="server-desc">Global content delivery network for lowest latency worldwide.</div>
+            </div>
+            <div class="server-card">
+                <div class="server-icon"><i class="fas fa-lock"></i></div>
+                <div class="server-title">DDoS Protection</div>
+                <div class="server-desc">Enterprise-grade security preventing malicious attacks.</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section" id="restream">
+        <div class="section-header">
+            <h2>Restream Services</h2>
+            <p>High-performance restream infrastructure with anti-buffer tech, ready for any source.</p>
+        </div>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <div class="plan-name">50 Connections</div>
+                <div class="plan-price">$150<span>/mo</span></div>
+                <ul class="plan-features">
+                    <li>Low Latency</li>
+                    <li>Anti-Buffer Tech</li>
+                    <li>Dedicated Server</li>
+                    <li>M3U / Xtream Codes</li>
+                    <li>24/7 Monitoring</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">100 Connections</div>
+                <div class="plan-price">$250<span>/mo</span></div>
+                <ul class="plan-features">
+                    <li>Everything in 50</li>
+                    <li>More Bandwidth</li>
+                    <li>Backup Server</li>
+                    <li>Full HD / 4K</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">200 Connections</div>
+                <div class="plan-price">$400<span>/mo</span></div>
+                <ul class="plan-features">
+                    <li>Everything in 100</li>
+                    <li>Priority Routing</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <div class="plan-name">Unlimited</div>
+                <div class="plan-price">$1000<span>/mo</span></div>
+                <ul class="plan-features">
+                    <li>Unlimited Connections</li>
+                    <li>Multi-region CDN</li>
+                    <li>SLA & Uptime Guarantee</li>
+                    <li>Custom Setup</li>
+                </ul>
+                <a href="contact.html" class="btn-pricing">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background particles (modern dropdown effect) -->
+    <script>
+    (function(){
+        const CANVAS_ID = 'bg-particles';
+        let canvas = document.getElementById(CANVAS_ID);
+        if(!canvas){
+            canvas = document.createElement('canvas');
+            canvas.id = CANVAS_ID;
+            canvas.style.position = 'fixed';
+            canvas.style.inset = '0';
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
+            canvas.style.pointerEvents = 'none';
+            canvas.style.zIndex = '0';
+            document.body.appendChild(canvas);
+        }
+        const ctx = canvas.getContext('2d');
+        let width = 0, height = 0, dpr = 1;
+        let particles = [];
+        const MAX_PARTICLES = 140; // tuned for perf
+        const PURPLE = {h: 266, s: 70, l: 65}; // close to #8B5CF6
+        const GLYPHS = ['<', '>', '{', '}', '/', '()'];
+        let mouseX = 0, mouseY = 0;
+
+        function resize(){
+            dpr = Math.min(2, window.devicePixelRatio || 1);
+            width = canvas.clientWidth;
+            height = canvas.clientHeight;
+            canvas.width = Math.floor(width * dpr);
+            canvas.height = Math.floor(height * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        function rnd(min, max){ return Math.random() * (max - min) + min; }
+        function choice(arr){ return arr[(Math.random()*arr.length)|0]; }
+
+        function spawn(count){
+            for(let i = 0; i < count; i++){
+                const isGlyph = Math.random() < 0.18; // some particles are glyphs
+                particles.push({
+                    x: rnd(0, width),
+                    y: rnd(-height, 0),
+                    r: isGlyph ? 0 : rnd(1, 2.4),
+                    vy: rnd(40, 110),
+                    vx: rnd(-20, 20),
+                    alpha: rnd(0.35, 0.9),
+                    hueShift: rnd(-6, 6),
+                    glyph: isGlyph ? choice(GLYPHS) : null,
+                    glyphSize: isGlyph ? rnd(10, 16) : 0,
+                    drift: rnd(0.5, 1.5)
+                });
+            }
+        }
+
+        function colorFor(p){
+            const h = PURPLE.h + p.hueShift;
+            return `hsla(${h}, ${PURPLE.s}%, ${PURPLE.l}%, ${p.alpha})`;
+        }
+
+        function step(ts){
+            ctx.clearRect(0, 0, width, height);
+            const targetLen = MAX_PARTICLES;
+            if(particles.length < targetLen) spawn(targetLen - particles.length);
+
+            for(const p of particles){
+                // subtle mouse parallax
+                const px = p.x + (mouseX - width/2) * 0.0008 * p.vy;
+                const py = p.y + (mouseY - height/2) * 0.0006 * p.vy;
+
+                p.y += (p.vy * 0.016);
+                p.x += (p.vx * 0.016) + Math.sin(ts * 0.0008 + p.y * 0.01) * 0.15 * p.drift;
+
+                if(p.y > height + 10){
+                    p.y = -10;
+                    p.x = rnd(0, width);
+                }
+                if(p.x < -10) p.x = width + 10;
+                if(p.x > width + 10) p.x = -10;
+
+                ctx.save();
+                ctx.fillStyle = colorFor(p);
+                if(p.glyph){
+                    ctx.font = `600 ${p.glyphSize}px Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif`;
+                    ctx.fillText(p.glyph, px, py);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(px, py, p.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
+            requestAnimationFrame(step);
+        }
+
+        window.addEventListener('resize', resize);
+        window.addEventListener('mousemove', (e)=>{ mouseX = e.clientX; mouseY = e.clientY; });
+        resize();
+        spawn(MAX_PARTICLES);
+        requestAnimationFrame(step);
+    })();
+    // Global protections against saving media (images/videos)
+    (function(){
+        document.addEventListener('contextmenu', function(e){
+            const t = e.target;
+            if(t && (t.tagName === 'IMG' || t.tagName === 'VIDEO')){
+                e.preventDefault();
+            }
+        }, { passive: false });
+        document.querySelectorAll('img').forEach(img=>{ img.setAttribute('draggable','false'); });
+        document.querySelectorAll('video').forEach(v=>{
+            v.setAttribute('controlsList','nodownload noplaybackrate noremoteplayback');
+            v.setAttribute('disablePictureInPicture','');
+            v.addEventListener('contextmenu', (e)=> e.preventDefault());
+        });
+    })();
+
+    // Screenshot prevention
+    (function() {
+        // Disable print screen key
+        document.addEventListener('keydown', function(e) {
+            // Prevent Print Screen, Ctrl+Print Screen, Shift+Print Screen
+            if (e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'PrintScreen') || (e.shiftKey && e.key === 'PrintScreen')) {
+                e.preventDefault();
+                return false;
+            }
+            // Prevent Ctrl+Shift+I (Developer Tools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            // Prevent F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable screen capture APIs
+        if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+            const originalGetDisplayMedia = navigator.mediaDevices.getDisplayMedia;
+            navigator.mediaDevices.getDisplayMedia = function() {
+                return Promise.reject(new Error('Screen capture is disabled'));
+            };
+        }
+
+        // Disable clipboard copy
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable drag and drop
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable context menu globally
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable keyboard shortcuts for screenshots
+        document.addEventListener('keyup', function(e) {
+            // Windows: Win+PrintScreen, Alt+PrintScreen
+            if ((e.key === 'PrintScreen' && (e.metaKey || e.altKey)) || 
+                (e.metaKey && e.key === 'PrintScreen')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    })();
+    // Skills & Tools reveal on scroll for entire card + staggered tags
+    (function(){
+        const skillsCard = document.querySelector('.skills-card');
+        if(!skillsCard) return;
+        const tags = skillsCard.querySelectorAll('.skill-tag');
+        const header = skillsCard.querySelector('.card-header h3');
+        const subs = skillsCard.querySelectorAll('.skill-category h4');
+        const io = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                if(entry.isIntersecting){
+                    skillsCard.classList.add('is-revealed');
+                    // Stagger each tag
+                    tags.forEach((tag, idx)=>{
+                        tag.style.animationDelay = (0.12 * idx) + 's';
+                    });
+                    // Light header/subtitle entrance
+                    if(header){ header.style.animation = 'fadeUp 0.45s ease-out forwards'; header.style.animationDelay = '0s'; header.style.opacity = '0'; }
+                    subs.forEach((s, i)=>{ s.style.animation = 'fadeUp 0.45s ease-out forwards'; s.style.animationDelay = (0.08 * i) + 's'; s.style.opacity = '0'; });
+                    io.unobserve(skillsCard);
+                }
+            });
+        }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.02 });
+        io.observe(skillsCard);
+    })();
+    
+    </script>
+    
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="JMzwaGapfBb88cMFMPfER";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+        </script>
+    <script>
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>

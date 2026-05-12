@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobaliptvStream</title>
+    <link rel="icon" type="image/jpeg" href="assets/fav icon/new fav icon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { 
+            font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; 
+            background: #0B0B0F; 
+            color: #FFFFFF; 
+            line-height: 1.6; 
+            overflow-x: hidden; 
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;
+        }
+        /* Screenshot prevention */
+        * { -webkit-touch-callout: none; -webkit-user-select: none; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+        .header { position: relative; top: 12px; left: 0; right: 0; z-index: 1000; padding: 0; }
+        .navbar { 
+            background: rgba(15, 15, 20, 0.9); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 14px; 
+            padding: 10px 18px; 
+            display: grid; 
+            grid-template-columns: auto 1fr auto; 
+            align-items: center; 
+            gap: 14px; 
+            max-width: 1280px; 
+            margin: 0 auto; 
+            position: relative;
+            min-height: 60px;
+        }
+        .navbar-brand .logo {
+            height: 100px;
+            width: 400px;
+            background: url('assets/logo/new logo.jpg') no-repeat left center / contain;
+            display: inline-block;
+        }
+        .nav-menu { display: flex; list-style: none; gap: 24px; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 2; }
+        .nav-link { color: #FFFFFF; text-decoration: none; font-weight: 500; display: flex; align-items: center; gap: 4px; transition: all 0.3s ease; }
+        .nav-link:hover, .nav-link.active { color: #8B5CF6; }
+        .nav-actions { display: flex; align-items: center; gap: 12px; justify-self: end; }
+        .social-icon-header { width: 32px; height: 32px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255, 255, 255, 0.7); transition: all 0.3s ease; text-decoration: none; flex-shrink: 0; }
+        .social-icon-header:hover { background: #8B5CF6; border-color: #8B5CF6; color: #FFFFFF; transform: translateY(-2px); }
+        .btn-talk { background: #8B5CF6; color: #FFFFFF; border: none; padding: 10px 18px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+        .btn-talk:hover { background: #7C3AED; transform: translateY(-2px); }
+
+        .main-content { padding-top: 60px; padding-bottom: 40px; }
+        .page-title { font-family: 'Space Grotesk', 'Plus Jakarta Sans', Inter, sans-serif; font-weight: 700; font-size: clamp(22px, 2.2vw, 28px); margin: 20px 0 18px; }
+
+        .contact-layout { display: grid; grid-template-columns: 1fr; gap: 16px; max-width: 980px; margin: 0 auto; }
+        .bento-card { background: rgba(20, 20, 25, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 20px; backdrop-filter: blur(20px); position: relative; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; gap: 14px; }
+        .bento-card:hover { border-color: rgba(139, 92, 246, 0.3); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139, 92, 246, 0.2); }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .star-icon { color: #F59E0B; font-size: 14px; }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-field { display: flex; flex-direction: column; gap: 8px; }
+        .form-field label { font-size: 12px; color: rgba(255,255,255,0.78); font-weight: 600; }
+        .form-field input, .form-field textarea { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.12); color: #FFFFFF; border-radius: 12px; padding: 12px 14px; font-size: 14px; outline: none; transition: border-color 0.2s ease, background 0.2s ease; }
+        .form-field textarea { min-height: 140px; resize: vertical; }
+        .form-field input::placeholder, .form-field textarea::placeholder { color: rgba(255,255,255,0.45); }
+        .form-field input:focus, .form-field textarea:focus { border-color: #8B5CF6; background: rgba(139, 92, 246, 0.08); }
+        .form-actions { display: flex; gap: 12px; align-items: center; margin-top: 6px; }
+        form { display: flex; flex-direction: column; gap: 14px; }
+
+        .side-card .contact-item { display: flex; align-items: center; gap: 8px; color: rgba(255, 255, 255, 0.8); font-size: 12px; }
+        .side-card .contact-item i { color: #8B5CF6; width: 16px; }
+
+        @media (max-width: 768px) { 
+            .navbar { grid-template-columns: auto auto; gap: 10px; padding: 10px 14px; min-height: 56px; }
+            .mobile-menu-btn { display: block; }
+            .nav-menu { position: absolute; top: 70px; left: 0; right: 0; transform: none; flex-direction: column; background: rgba(15, 15, 20, 0.98); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; gap: 16px; z-index: 100; display: none; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+            .nav-menu.active { display: flex; }
+            .nav-link { font-size: 16px; padding: 10px; border-radius: 8px; justify-content: center; }
+            .nav-link:hover, .nav-link.active { background: rgba(139, 92, 246, 0.1); }
+            .social-icon-header { width: 26px; height: 26px; }
+            .navbar-brand .logo { height: 70px; width: 240px; }
+            .main-content { padding-top: 44px; padding-bottom: 30px; }
+            .contact-layout { grid-template-columns: 1fr; gap: 14px; padding: 0 4px; }
+            .form-grid { grid-template-columns: 1fr; gap: 14px; }
+        }
+        @media (max-width: 480px) {
+            .container { padding: 0 12px; }
+            .navbar { padding: 10px 12px; gap: 8px; }
+            .navbar-brand .logo { height: 70px; width: 240px; }
+            .bento-card { padding: 16px; }
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #FFFFFF;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 101;
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="navbar-brand">
+                    <a href="index.html" class="logo-link">
+                        <div class="logo" aria-label="Logo"></div>
+                    </a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="index.html#home" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="works.html" class="nav-link">Works</a></li>
+                    <li class="nav-item"><a href="contact.html" class="nav-link active">Contact</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="https://t.me/zaahmil" class="social-icon-header" title="Telegram" target="_blank" rel="noopener"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://wa.me/+2250140017691" class="social-icon-header" title="WhatsApp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                    <button class="mobile-menu-btn" aria-label="Toggle menu" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">Get In Touch</h1>
+            <div class="contact-layout">
+                <div class="bento-card">
+                    <div class="card-header">
+                        <span>Send a Message</span>
+                        <div class="star-icon">✦</div>
+                    </div>
+                    <form id="contactForm" action="https://formsubmit.co/ajax/chapmandharmi@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="New contact from BentoX">
+                        <input type="hidden" name="_template" value="table">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_autoresponse" value="Thanks for reaching out! Your message has been received.">
+                        <input type="text" name="_honey" style="display:none">
+                        <div class="form-grid">
+                            <div class="form-field">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="email">Gmail</label>
+                                <input type="email" id="email" name="email" placeholder="yourname@gmail.com" inputmode="email" autocomplete="email" required>
+                            </div>
+                        </div>
+                        <div class="form-field">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="What is this about?" required>
+                        </div>
+                        <div class="form-field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-talk">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="toast" aria-live="polite" aria-atomic="true" style="position: fixed; left: 50%; transform: translateX(-50%); bottom: 20px; background: rgba(20,20,25,0.95); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 12px 16px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.35); z-index: 2000; display: none;">
+        <span id="toastText">Message sent successfully.</span>
+    </div>
+
+    <script>
+    (function(){
+        const form = document.getElementById('contactForm');
+        const toast = document.getElementById('toast');
+        const toastText = document.getElementById('toastText');
+        if(!form) return;
+
+        function showToast(message){
+            if(!toast) return;
+            toastText.textContent = message;
+            toast.style.display = 'block';
+            toast.style.opacity = '0';
+            toast.style.transition = 'opacity 200ms ease';
+            requestAnimationFrame(()=>{ toast.style.opacity = '1'; });
+            setTimeout(()=>{
+                toast.style.opacity = '0';
+                setTimeout(()=>{ toast.style.display = 'none'; }, 220);
+            }, 5000);
+        }
+
+        form.addEventListener('submit', async function(e){
+            e.preventDefault();
+            const formData = new FormData(form);
+            try{
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    headers: { 'Accept': 'application/json' },
+                    body: formData
+                });
+                if(response.ok){
+                    form.reset();
+                    showToast('Message sent successfully.');
+                } else {
+                    showToast('Failed to send. Please try again.');
+                }
+            } catch(err){
+                showToast('Network error. Please try again.');
+            }
+        });
+    })();
+
+    // Screenshot prevention
+    (function() {
+        // Disable print screen key
+        document.addEventListener('keydown', function(e) {
+            // Prevent Print Screen, Ctrl+Print Screen, Shift+Print Screen
+            if (e.key === 'PrintScreen' || (e.ctrlKey && e.key === 'PrintScreen') || (e.shiftKey && e.key === 'PrintScreen')) {
+                e.preventDefault();
+                return false;
+            }
+            // Prevent Ctrl+Shift+I (Developer Tools)
+            if (e.ctrlKey && e.shiftKey && e.key === 'I') {
+                e.preventDefault();
+                return false;
+            }
+            // Prevent F12
+            if (e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable screen capture APIs
+        if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+            const originalGetDisplayMedia = navigator.mediaDevices.getDisplayMedia;
+            navigator.mediaDevices.getDisplayMedia = function() {
+                return Promise.reject(new Error('Screen capture is disabled'));
+            };
+        }
+
+        // Disable clipboard copy
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable drag and drop
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable context menu globally
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        // Disable keyboard shortcuts for screenshots
+        document.addEventListener('keyup', function(e) {
+            // Windows: Win+PrintScreen, Alt+PrintScreen
+            if ((e.key === 'PrintScreen' && (e.metaKey || e.altKey)) || 
+                (e.metaKey && e.key === 'PrintScreen')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    })();
+    </script>
+    <script>
+        (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="JMzwaGapfBb88cMFMPfER";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
+    <script>
+        document.getElementById('mobileMenuBtn')?.addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    </script>
+</body>
+</html>
+
+
